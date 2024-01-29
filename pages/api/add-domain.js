@@ -1,8 +1,12 @@
 import moment from "moment";
 import prisma from "../../lib/prisma";
-
+import "moment/locale/vi";
 export default async function handler(req, res) {
   const { ten, tien, ghiChu } = req.query;
+  moment.locale("vi");
+  moment.updateLocale("vi", {
+    invalidDate: "-",
+  });
   const data = await prisma.user.create({
     data: {
       ten,
