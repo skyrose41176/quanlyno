@@ -74,7 +74,9 @@ export default function Home() {
         }}
       />
       <main className="flex flex-col items-center justify-center w-full flex-1 sm:px-4 text-center my-4">
-        <h1 className="text-3xl sm:text-6xl font-bold">Bảng vàng</h1>
+        <h1 className="text-3xl sm:text-6xl font-bold text-yellow-500">
+          BẢNG VÀNG
+        </h1>
         {listInput.map((item, index) => {
           return (
             <div key={index}>
