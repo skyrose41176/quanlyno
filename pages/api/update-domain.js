@@ -2,15 +2,14 @@ import moment from "moment";
 import prisma from "../../lib/prisma";
 
 export default async function handler(req, res) {
-  const { ten, tien, ghiChu } = req.query;
-  const data = await prisma.user.create({
+  const { id, trangThai } = req.query;
+  const data = await prisma.user.update({
+    where: {
+      id,
+    },
     data: {
-      ten,
-      tien,
-      ghiChu,
-      trangThai: "1",
-      ngayTao: moment().format("DD/MM/YYYY hh:mm"),
-      ngayTra: "",
+      trangThai,
+      ngayTra: moment().format("DD/MM/YYYY hh:mm"),
     },
   });
 
