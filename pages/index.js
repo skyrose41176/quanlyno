@@ -126,7 +126,7 @@ export default function Home() {
                 return (
                   <DomainCard
                     key={index}
-                    domain={domain.name}
+                    domain={domain.email}
                     revalidateDomains={revalidateDomains}
                   />
                 );
