@@ -8,22 +8,22 @@ export default function Home() {
   const [payments, setPayments] = useState({});
 
   const handleNumPeopleChange = (e) => {
-    setNumPeople(parseInt(e.target.value));
+    setNumPeople(parseInt(e.target.value ?? 0));
   };
 
   const handleAmountChange = (e, name) => {
     setAmounts((prevAmounts) => ({
       ...prevAmounts,
-      [name]: parseFloat(e.target.value),
+      [name]: parseFloat(e.target.value ?? 0),
     }));
   };
 
   const handleDiscountAmountChange = (e) => {
-    setDiscountAmount(parseFloat(e.target.value));
+    setDiscountAmount(parseFloat(e.target.value ?? 0));
   };
 
   const handleShipChange = (e) => {
-    setShip(parseFloat(e.target.value));
+    setShip(parseFloat(e.target.value ?? 0));
   };
 
   const handleSubmit = (e) => {
@@ -64,6 +64,7 @@ export default function Home() {
           Number of People:
           <input
             type="number"
+            required
             value={numPeople}
             onChange={handleNumPeopleChange}
           />
@@ -76,6 +77,7 @@ export default function Home() {
               Person {index + 1}:
               <input
                 type="number"
+                required
                 onChange={(e) => handleAmountChange(e, `Person ${index + 1}`)}
               />
             </label>
@@ -87,6 +89,7 @@ export default function Home() {
           Discount Amount:
           <input
             type="number"
+            required
             value={discountAmount}
             onChange={handleDiscountAmountChange}
           />
@@ -95,7 +98,12 @@ export default function Home() {
         <br />
         <label>
           Ship:
-          <input type="number" value={ship} onChange={handleShipChange} />
+          <input
+            type="number"
+            value={ship}
+            onChange={handleShipChange}
+            required
+          />
         </label>
         <br />
         <br />
@@ -105,12 +113,14 @@ export default function Home() {
       <h2>Payments:</h2>
       {Object.entries(payments).map(([name, payment]) => (
         <p key={name}>
-          <strong>{name}:</strong> {payment}
+          <strong>{name}:</strong> {payment.toLocaleString("en-US")}
         </p>
       ))}
       <h2>
         Total Payment:{" "}
-        {Object.values(payments).reduce((acc, curr) => acc + curr, 0)}
+        {Object.values(payments)
+          .reduce((acc, curr) => acc + curr, 0)
+          .toLocaleString("en-US")}
       </h2>
     </div>
   );
