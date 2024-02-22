@@ -10,7 +10,7 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
-model User {
+model Post {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   ten String
   tien String
@@ -18,4 +18,13 @@ model User {
   trangThai String
   ngayTao String
   ngayTra String
+  userId String
+}
+model User {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  ten String
+  soDienThoai String
+  soTaiKhoan String
+  tenNganHang String
+  linkQrCode String
 }

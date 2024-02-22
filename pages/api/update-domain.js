@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   moment.updateLocale("vi", {
     invalidDate: "-",
   });
-  const data = await prisma.user.update({
+  const data = await prisma.post.update({
     where: {
       id,
     },
