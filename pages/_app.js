@@ -1,7 +1,13 @@
-import 'tailwindcss/tailwind.css'
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import theme from "../styles/theme";
+
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
-
-export default MyApp
