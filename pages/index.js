@@ -173,9 +173,11 @@ export default function Home() {
             />
           </Grid>
         </Grid>
-        <Button variant="contained" type="submit">
-          Calculate Payments
-        </Button>
+        <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+          <Button variant="contained" type="submit">
+            Calculate Payments
+          </Button>
+        </Grid>
       </form>
       <Typography variant="h5" sx={{ mt: 4 }}>
         Payments:
