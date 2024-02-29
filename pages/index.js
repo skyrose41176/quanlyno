@@ -1,11 +1,20 @@
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
+import {
+  Button,
+  Container,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+
 export default function Home() {
   const [numPeople, setNumPeople] = useState(0);
   const [amounts, setAmounts] = useState({});
   const [discountAmount, setDiscountAmount] = useState(0);
   const [ship, setShip] = useState(0);
   const [payments, setPayments] = useState({});
+  const [names, setNames] = useState({});
 
   const handleNumPeopleChange = (e) => {
     setNumPeople(parseInt(e.target.value ?? 0));
@@ -24,6 +33,13 @@ export default function Home() {
 
   const handleShipChange = (e) => {
     setShip(parseFloat(e.target.value ?? 0));
+  };
+
+  const handleNameChange = (e, index) => {
+    setNames((prevNames) => ({
+      ...prevNames,
+      [index]: e.target.value,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -56,74 +72,7 @@ export default function Home() {
 
     setPayments(calculatedPayments);
   };
-  // return (
-  //   <div>
-  //     <h1>Payment Calculator</h1>
-  //     <form onSubmit={handleSubmit}>
-  //       <label>
-  //         Number of People:
-  //         <input
-  //           type="number"
-  //           required
-  //           value={numPeople}
-  //           onChange={handleNumPeopleChange}
-  //         />
-  //       </label>
-  //       <br />
-  //       <br />
-  //       {Array.from({ length: numPeople }).map((_, index) => (
-  //         <div key={index}>
-  //           <label>
-  //             Person {index + 1}:
-  //             <input
-  //               type="number"
-  //               required
-  //               onChange={(e) => handleAmountChange(e, `Person ${index + 1}`)}
-  //             />
-  //           </label>
-  //           <br />
-  //         </div>
-  //       ))}
-  //       <br />
-  //       <label>
-  //         Discount Amount:
-  //         <input
-  //           type="number"
-  //           required
-  //           value={discountAmount}
-  //           onChange={handleDiscountAmountChange}
-  //         />
-  //       </label>
-  //       <br />
-  //       <br />
-  //       <label>
-  //         Ship:
-  //         <input
-  //           type="number"
-  //           value={ship}
-  //           onChange={handleShipChange}
-  //           required
-  //         />
-  //       </label>
-  //       <br />
-  //       <br />
-  //       <button type="submit">Calculate Payments</button>
-  //     </form>
-  //     <br />
-  //     <h2>Payments:</h2>
-  //     {Object.entries(payments).map(([name, payment]) => (
-  //       <p key={name}>
-  //         <strong>{name}:</strong> {payment.toLocaleString("en-US")}
-  //       </p>
-  //     ))}
-  //     <h2>
-  //       Total Payment:{" "}
-  //       {Object.values(payments)
-  //         .reduce((acc, curr) => acc + curr, 0)
-  //         .toLocaleString("en-US")}
-  //     </h2>
-  //   </div>
-  // );
+
   return (
     <Container maxWidth="sm" sx={{ mt: 4 }}>
       <Typography variant="h4" sx={{ mb: 2 }}>
@@ -136,20 +85,31 @@ export default function Home() {
               type="number"
               label="Number of People"
               required
+              minRows={0}
               value={numPeople}
               onChange={handleNumPeopleChange}
               fullWidth
             />
           </Grid>
           {Array.from({ length: numPeople }).map((_, index) => (
-            <Grid item xs={12} key={index}>
-              <TextField
-                type="number"
-                label={`Person ${index + 1}`}
-                required
-                onChange={(e) => handleAmountChange(e, `Person ${index + 1}`)}
-                fullWidth
-              />
+            <Grid item xs={12} key={index} spacing={2}>
+              <Stack direction="row" spacing={2}>
+                <TextField
+                  label="Name"
+                  required
+                  value={names[index]}
+                  onChange={(e) => handleNameChange(e, index)}
+                  fullWidth
+                />
+                <TextField
+                  sx={{ mt: 2 }}
+                  type="number"
+                  label={names[index]}
+                  required
+                  onChange={(e) => handleAmountChange(e, names[index])}
+                  fullWidth
+                />
+              </Stack>
             </Grid>
           ))}
           <Grid item xs={12}>
